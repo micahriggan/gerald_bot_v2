@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const Log = require('./Log');
 const Settings = require('./Settings');
-const commandTypes = ['message', 'presence', 'startup', 'websocket'];
+const commandTypes = ['message', 'presence', 'startup', 'websocket', 'reoccuring'];
 
 class Loader {
 	/**

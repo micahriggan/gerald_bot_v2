@@ -25,6 +25,9 @@ class ChatBot {
 				// Run any start up commands
 				ChatBot.runStartupCommands( chat );
 
+				// Run any start up commands
+				ChatBot.startUpdateLoop(chat);
+
 				// Start the websocket server
 				Websocket.start( chat );
 
@@ -33,6 +36,29 @@ class ChatBot {
 			} );
 		} );
 	}
+
+	static startUpdateLoop(chat) {
+
+		var loop = function updateLoop() {
+			console.log("-- Update Tick --");
+
+			// Loop through each startup core commands, and run the action
+			runtime.coreCommands.reoccuring.forEach( function( command ) {
+				command.action(chat);
+			});
+
+			// Loop through each startup plugin commands, and run the action
+			runtime.pluginCommands.reoccuring.forEach( function( command ) {
+				command.action(chat);
+			});
+
+			setTimeout(loop, 60*1000);
+		}
+
+		loop();
+	}
+
+
 
 	/**
 	 * Run any of the 'startup' type commands
