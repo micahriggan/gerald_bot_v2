@@ -1,13 +1,13 @@
 {
-  "name": "lctv-bot",
+  "name": "gerald_bot_v2",
   "version": "1.0.0",
-  "description": "Live Coding TV chat bot",
+  "description": "LiveEdu.tv chat bot",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "mocha test/**/*.test.js"
   },
-  "author": "Owen Conti <owen@ohseemedia.com>",
+  "author": "Liam Craver <liam@limestudios.net>, Owen Conti <owen@ohseemedia.com>",
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.3",
