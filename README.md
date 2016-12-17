@@ -1,37 +1,33 @@
-# livecodingtv-bot
+# gerald_bot_v2
+Base bot created by owenconti
 
-
-## BEFORE YOU BEGIN!
-### This node app uses ES6 features.
-### Please ensure you are running node v4 or greater!
+### This node app requires node v4 or greater to work correctly!
 
 ## Changelog
-
-[https://github.com/owenconti/livecodingtv-bot/blob/master/changelog.md](https://github.com/owenconti/livecodingtv-bot/blob/master/changelog.md)
+[https://github.com/lcraver/gerald_bot_v2/blob/master/changelog.md](https://github.com/lcraver/gerald_bot_v2/blob/master/changelog.md)
 
 ## Offical Plugins
 The list of official plugins for the bot can be found on this repo: [https://github.com/owenconti/livecodingtv-bot-plugins](https://github.com/owenconti/livecodingtv-bot-plugins)
-
-Instructions for writing your own plugins can also be found on the repo above.
+Instructions for writing your own plugins can also be found in the repo above.
 
 ## Setup
 
-1) Clone the repo
+1) Clone / Fork the repo
 
-2) Create a `setup/custom/credentials.js` file and `setup/custom/settings.json` file.
+2) Create a `/setup/custom/credentials.js` file and `/setup/custom/settings.json` file.
 
 3) Find your XMPP password on LCTV page.
-	1. Open your live stream page ( https://www.livecoding.tv/USERNAME )
+	1. Open your live stream page (https://www.livecoding.tv/USERNAME)
 	2. Open Dev Tools and switch to the Elements tab
 	3. Search the HTML content for "password".
 	4. The XMPP password will be a long string in an object containing 'jid' and 'password'.
 
-4) Fill in the `setup/custom/credentials.js` file with the following format:
+4) Fill in the `/setup/custom/credentials.js` file with the following format:
 
 ```
-var username = 'LCTV_BOT_USERNAME';
+var username = 'LCTV_BOT_USERNAME'; // Must be an existing user
 var password = 'XMPP_BOT_PASSWORD'; // Found in step 3
-var room = 'LCTV_USER_WHERE_BOT_WILL_BE';
+var room = 'LCTV_USER_WHERE_BOT_WILL_BE'; // Streamer username
 
 module.exports = {
     room: username,
@@ -40,22 +36,25 @@ module.exports = {
     password: password,
     roomJid: room + '@chat.livecoding.tv'
 };
-```
-
-5) Fill `setup/custom/settings.json` with the following JSON data:
 
 ```
+
+5) Fill `/setup/custom/settings.json` with the following JSON data:
+
+```
+
 {
 	"plugins": {
 		"noifications": true,
 		"api-triggers": true
 	}
 }
+
 ```
 
 6) Run `npm install`
 
-7) Run `node index.js`
+7) Run with `node index.js` or `npm start`.
 
 8) Some commands require extra API keys or specific variables. You can use the `credentials.js` file to store these variables.
 
@@ -64,32 +63,32 @@ module.exports = {
     // ...
     password: password,
     roomJid: room + '@chat.livecoding.tv',
-	githubRepo: 'owenconti/livecodingtv-bot',
-	youtubeApiKey: 'adfadsfsadfasdf'
+		githubRepo: 'owenconti/livecodingtv-bot',
+		youtubeApiKey: 'adfadsfsadfasdf'
 };
 ```
 
-9) The bot should be running and waiting for your commands!
+9) At this point the bot should be running and waiting for your commands!
 
 ## Custom command credentials
 
 #### Github repo command
 - Github repo must be publicly available
-- Attribute in credentials.js: `githubRepo: 'owenconti/livecodingtv-bot'`
+- Attribute in credentials.js: `githubRepo: 'lcraver/gerald_bot_v2'`
 
 
 ### Generating Help documentation
-Help documentation is generated via Gist. Please ensure you have the following variables setup in your credentials file before starting the bot:
+Help documentation is generated via Gist. Please ensure you have the following variables setup in your `credentials.js` file before starting the bot:
 
 ```
 {
-	"gistUsername" : "GIST_USERNAME",
-	"gistAccessToken" : "GIST_ACCESS_TOKEN"
+	gistUsername : 'GIST_USERNAME',
+	gistAccessToken : 'GIST_ACCESS_TOKEN'
 }
 ```
 
 ## Custom settings
-To enable plugins once you've downloaded them, edit the `setup/custom/settings.json` file:
+To enable plugins once you've downloaded them, edit the `/setup/custom/settings.json` file:
 
 ```
 {
@@ -101,7 +100,7 @@ To enable plugins once you've downloaded them, edit the `setup/custom/settings.j
 ```
 
 ## Custom assets
-The core includes one asset, the `doge.png` image file. If you want to include more assets, place the files in the `setup/custom/assets` directory. Using the `Assets.load( filename.ext )` function, your custom asset will be loaded as base64 encoded string.
+The core includes one asset, the `doge.png` image file. If you want to include more assets, place the files in the `/setup/custom/assets` directory. Using the `Assets.load( filename.ext )` function, your custom asset will be loaded as base64 encoded string.
 
 ## Plugin settings
 Plugins can have their own settings. If a plugin chooses to have its own settings, the plugin folder will contain a `settings.json` file. You can edit any of the available settings inside that `settings.json` file.
@@ -112,7 +111,7 @@ Take a look at https://github.com/owenconti/livecodingtv-bot-plugins
 What you need for getting Plugins to work:
 
 1) Download the plugin to the folder "plugins"
-2) Add it to your settings.json in "setup/custom/" like that:
+2) Add it to your `settings.json` in `/setup/custom/` like that:
 ```
 "plugins" : {
 	"PLUGIN-NAME": true
