@@ -123,24 +123,6 @@ What you need for getting Plugins to work:
 Plugins can be composed of multiple commands. Commands can have four attributes:
 
 ```
-Stanza Object
-{
-	type: 'message',
-  user:
-   User {
-     username: 'lcraver',
-     role: 'participant',
-     status: 'Viewer',
-     viewCount: 2,
-     lastVisitTime: 1481918467524
-	},
-  message: 'test',
-  rateLimited: false,
-  ranCommand: false
-}
-```
-
-```
 {
 	types: ['message'],
 	regex: /^test$/,
