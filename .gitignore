@@ -33,7 +33,7 @@ node_modules
 brain
 
 # Don't commit custom plugins
-/plugins
+# /plugins
 
 # Don't commit settings.json file
 /setup/custom
