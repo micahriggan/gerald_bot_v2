@@ -9,12 +9,20 @@ class Brain {
 		});
 	}
 
-	static get( key ) {
-		return brain.getItemSync( key ) || null;
+	static get(key) {
+		return brain.getItemSync(key) || null;
 	}
 
-	static set( key, value ) {
-		brain.setItemSync( key, value );
+	static set(key, value) {
+		brain.setItemSync(key, value);
+	}
+
+	static getValuesWithKey(key) {
+		return brain.valuesWithKeyMatch(key);
+	}
+
+	static remove(key) {
+		brain.removeItemSync(key);
 	}
 };
 
