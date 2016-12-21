@@ -54,7 +54,6 @@ class ChatBot {
 			});
 
 			let commandCycle = Settings.getSetting('coreApp', 'app_cycle');
-
 			setTimeout(loop, commandCycle*1000);
 		}
 
