@@ -134,7 +134,8 @@ class Client {
 				count: 1,
 				time: new Date().getTime(),
 				role: 'participant',
-				status: 'Viewer'
+				status: 'Viewer',
+        watching: true
 			};
 			users[ username ] = userObj;
 			runtime.brain.set( 'users', users );
@@ -206,38 +207,38 @@ class Client {
 	 * @return {obj}
 	 */
     static parsePresence( stanza, credentials) {
-        let type = 'presence';
-		let jid = stanza.attrs.from;
-        let username = jid.substr( jid.indexOf( '/' ) + 1 );
-        let message = stanza.attrs.type || 'available';
+      let type = 'presence';
+      let jid = stanza.attrs.from;
+      let username = jid.substr( jid.indexOf( '/' ) + 1 );
+      let message = stanza.attrs.type || 'available';
 
-        // Find role
-        let xObj = Client.findChild( 'x', stanza.children );
-        let itemObj = Client.findChild( 'item', xObj.children );
-        let role = itemObj.attrs.role;
+      // Find role
+      let xObj = Client.findChild( 'x', stanza.children );
+      let itemObj = Client.findChild( 'item', xObj.children );
+      let role = itemObj.attrs.role;
 
-		// Store new users in the 'users' brain object
-		let user = Client.getUser( username );
+  		// Store new users in the 'users' brain object
+  		let user = Client.getUser( username );
 
-		// Update the user's view count and presence time
-		// only if their count hasn't been updated in
-		// the last 5 minutes.
-		const now = new Date().getTime();
-		const minutes = 5;
-		if ( now - user.lastVisitTime > 1000 * 60 * minutes ) {
-			user.viewCount++;
-			user.lastVisitTime = now;
-		}
+  		// Update the user's view count and presence time
+  		// only if their count hasn't been updated in
+  		// the last 5 minutes.
+  		const now = new Date().getTime();
+  		const minutes = 5;
+  		if ( now - user.lastVisitTime > 1000 * 60 * minutes ) {
+  			user.viewCount++;
+  			user.lastVisitTime = now;
+  		}
 
-		// If presence is unavailable,
-		// return without storing user object
-		if ( message === 'unavailable' ) {
-			return { type, user, message, role };
-		}
+  		// If presence is unavailable set watching to false
+  		if ( message === 'unavailable' )
+        user.watching = false;
+      else
+        user.watching = true;
 
-		user.saveToBrain();
+  		user.saveToBrain();
 
-        return { type, user, message, role };
+      return { type, user, message, role };
     }
 
 	/**

@@ -11,6 +11,7 @@ class User {
 		this.status = attrs.status;
 		this.viewCount = attrs.count;
 		this.lastVisitTime = attrs.time;
+		this.watching = attrs.watching;
 	}
 
 	/**
@@ -24,7 +25,8 @@ class User {
 			count: this.viewCount,
 			time: this.lastVisitTime,
 			role: this.role,
-			status: this.status
+			status: this.status,
+			watching: this.watching
 		};
 		runtime.brain.set( 'users', users );
 	}
@@ -58,6 +60,10 @@ class User {
 
 	isBot() {
 		return this.username === runtime.credentials.username;
+	}
+
+	isWatching() {
+		return this.watching === true;
 	}
 }
 
