@@ -4,6 +4,7 @@ const Client = require( './Client' );
 const Websocket = require('./Websocket');
 const Log = require('./Log');
 const Loader = require('./Loader');
+const Settings = require('./Settings');
 let runtime = require('./Runtime');
 
 class ChatBot {
@@ -52,7 +53,9 @@ class ChatBot {
 				command.action(chat);
 			});
 
-			setTimeout(loop, 60*1000);
+			let commandCycle = Settings.getSetting('coreApp', 'app_cycle');
+
+			setTimeout(loop, commandCycle*1000);
 		}
 
 		loop();
