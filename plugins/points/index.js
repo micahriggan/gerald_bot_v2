@@ -45,24 +45,28 @@ module.exports = [{
 
 		// Update User storage in brain
 
-		let pointData = runtime.brain.get('points') || null; // initialize the points storage
-		let userData = runtime.brain.get('users') || null; // initialize the points storage
+		let pointData = runtime.brain.get('points') || {}; // initialize the points storage
+		let userData = runtime.brain.get('users') || {}; // initialize the points storage
 
-		if(pointData != undefined && pointData != null)
+		if(pointData != {} && pointData != null)
 		{
 			let activeUserList = Object.keys(userData);
 
 			for(var i = 0; i < activeUserList.length; i++)
 			{
 				let tmpUser = activeUserList[i];
-				if (tmpUser in pointData)
+
+				if(userData[tmpUser].watching == true)
 				{
-					let tmpPoints = pointData[tmpUser];
-					pointData[tmpUser] = tmpPoints + 1;
-				}
-				else
-				{
-					pointData[tmpUser] = 1;
+					if (tmpUser in pointData)
+					{
+						let tmpPoints = pointData[tmpUser];
+						pointData[tmpUser] = tmpPoints + 1;
+					}
+					else
+					{
+						pointData[tmpUser] = 1;
+					}
 				}
 			}
 
