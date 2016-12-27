@@ -71,6 +71,8 @@ module.exports = [{
 		}));
 		app.set('view engine', 'handlebars');
 
+		//exphbs.registerPartial('myPartial', '{{name}}')
+
 		app.get('/script/:file', function(req, res)
 		{
 			res.sendFile(baseURL + '/scripts/' + req.params.file);
@@ -79,6 +81,11 @@ module.exports = [{
 		app.get('/style/:file', function(req, res)
 		{
 			res.sendFile(baseURL + '/styles/' + req.params.file);
+		});
+
+		app.get('/asset/:file', function(req, res)
+		{
+			res.sendFile(baseURL + '/asset/' + req.params.file);
 		});
 
 		app.get('/', function(req, res)

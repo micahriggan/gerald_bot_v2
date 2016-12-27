@@ -1,7 +1,9 @@
-<h3>Active Users</h3>
-
-<ul>
-  <li ng-repeat="user in users | orderBy: username">
-    {[{user.username}]}
-  </li>
-</ul>
+<div ng-switch on="view">
+  <div ng-switch-when="dashboard">{{> dashboard}}</div>
+  <div ng-switch-when="commands">{{> commands}}</div>
+  <div ng-switch-when="giveaways">{{> giveaways}}</div>
+  <div ng-switch-when="donations">{{> donations}}</div>
+  <div ng-switch-when="logs">{{> logs}}</div>
+  <div ng-switch-when="settings">{{> settings}}</div>
+  <div ng-switch-default>You aren't supposed to see this...</div>
+</div>

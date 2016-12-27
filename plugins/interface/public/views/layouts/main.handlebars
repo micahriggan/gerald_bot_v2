@@ -11,7 +11,11 @@
 </head>
 <body ng-app="gerald" ng-controller="geraldController">
 
-    {{{body}}}
+    {{> sidebar}}
+
+    <section class="content">
+      {{{body}}}
+    </section>
 
 </body>
 </html>

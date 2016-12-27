@@ -1,5 +1,6 @@
 var app = angular.module("gerald", []);
 
+// Make angular work with handlebars
 app.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[{');
   $interpolateProvider.endSymbol('}]}');
@@ -7,24 +8,34 @@ app.config(function($interpolateProvider) {
 
 app.controller('geraldController', function ($rootScope, $scope, $http) {
 
+  // Master Variables
+  $rootScope.users = [];
+  $scope.view = "dashboard";
+
   // Begin Update Loop
   setInterval(function(){
     $rootScope.updateInterface();
   }, 10000)
-
-  $scope.users = [];
 
   $rootScope.updateInterface = function () {
     $http({
       method: 'GET',
       url: 'http://localhost:3000/users'
     }).then(function successCallback(queueData) {
-      $scope.users = queueData.data;
+      $rootScope.users = queueData.data;
     }, function errorCallback(response) {
       console.log(response);
     });
   };
 
+  $rootScope.isActiveView = function (view) {
+    if ($scope.view == view)
+      return "active";
+    else
+      return "";
+  };
+
+  // Call on load once
   $rootScope.updateInterface();
 
 });

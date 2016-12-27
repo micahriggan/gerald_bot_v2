@@ -1,3 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700');
+
 body {
   background-color: #f5f5f5;
+  border: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  clear: both;
+  font-family: 'Roboto', sans-serif;
+}
+
+/*Nav Side Bar*/
+section.sidebar {
+  width: 256px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  display: block;
+  background-color: white;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+section.sidebar .logo {
+  background-color: #FFF2E8;
+  height: 128px;
+  border-bottom: 1px solid #555;
+}
+
+section.sidebar .logo img {
+  height: 96px;
+  padding: 16px;
+  margin: 0 auto;
+  display: block;
+}
+
+section.sidebar nav {
+  padding: 12px 0;
+}
+
+section.sidebar nav div {
+  padding: 18px 0 18px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background-color 0.1s ease-out;
+}
+
+section.sidebar nav div.active {
+  border-left: 4px solid #FFA726;
+  background-color: #ccc;
+  padding-left: 20px;
+}
+
+section.sidebar nav div:hover {
+  background-color: #eee;
+}
+
+/*Content Section*/
+section.content {
+  padding: 16px;
+  position: absolute;
+  left: 256px;
+  right: 0px;
+  display: block;
+  float:right;
 }
