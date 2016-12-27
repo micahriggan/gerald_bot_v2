@@ -71,11 +71,42 @@ module.exports = [{
 		}));
 		app.set('view engine', 'handlebars');
 
+		app.get('/script/:file', function(req, res)
+		{
+			res.sendFile(baseURL + '/scripts/' + req.params.file);
+		});
+
+		app.get('/style/:file', function(req, res)
+		{
+			res.sendFile(baseURL + '/styles/' + req.params.file);
+		});
+
 		app.get('/', function(req, res)
 		{
-			res.render('test', {
-				userData: runtime.brain.get('users') || {}
-			});
+			res.render('home');
+		});
+
+		app.get('/users', function(req, res)
+		{
+			var userData = runtime.brain.get('users') || {};
+			var activeUserList = Object.keys(userData);
+
+			var usersToReturn = [];
+
+			for(var i = 0; i < activeUserList.length; i++)
+			{
+				var tmpUser = activeUserList[i];
+				var tmpUserObj = {
+					"username": tmpUser,
+					"role": userData[tmpUser].role,
+					"status": userData[tmpUser].status,
+					"last_visit": userData[tmpUser].lastVisitTime
+				};
+				if(userData[tmpUser].watching)
+					usersToReturn.push(tmpUserObj);
+			}
+
+			res.send(usersToReturn);
 		});
 
 		app.listen(app.get('port'),  function () {
