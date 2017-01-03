@@ -1,50 +1,37 @@
 'use strict';
 
-/**
- * Test plugin example
- *
- * There must be an 'index.js' file for each plugin!
- * Plugins can then require additional files, if needed.
- *
- * Command 1:
- *
- * The first command will respond to any message with
- * with the contents 'test'. The bot will reply with
- * a string: 'I heard test!'.
- *
- * Command 2:
- *
- * The second command is a startup command. It will be called
- * during start up, after connecting to the server.
- * It logs out the string, "Starting the test plugin".
- * You can use startup commands to initialize storage mechanisms,
- * or to connect to APIs, etc, etc.
- */
-
+const Say = require('../../utils/Say');
 const runtime = require('../../utils/Runtime');
 const Client = require('../../utils/Client');
 const pluginSettings = require('./settings.json');
 
 module.exports = [{
-	types: ['message'],
-	regex: /^test$/,
-	action: function(chat, stanza) {
-		console.log("STANZA: \n");
-		console.log(stanza);
+	name: '!points',
+	help: 'Shows the user their points.',
+  types: ['message'],
+  regex: /^!points$/,
+  action: function( chat, stanza ) {
+		//console.log(chat);
+		let pointData = runtime.brain.get('points') || {};
+		let user = stanza.user.username;
+		let userPoints = pointData[user];
 
-		console.log("CHAT: \n");
-		console.log(chat);
-
-		chat.sendMessage('I heard test!');
-	}
+		if(pointData != {})
+		{
+			let message = "@" + user + ": you have " + userPoints;
+			if(userPoints == 1)
+				message += " point!";
+			else
+				message += " points!";
+	    Say.say(message, "Zira");
+			chat.sendMessage(message);
+		}
+  }
 },
 {
 	types: ['reoccuring'],
-	regex: /^test$/,
 	action: function(chat, stanza) {
-
 		// Update User storage in brain
-
 		let pointData = runtime.brain.get('points') || {}; // initialize the points storage
 		let userData = runtime.brain.get('users') || {}; // initialize the points storage
 
