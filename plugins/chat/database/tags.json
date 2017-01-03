@@ -1,0 +1,117 @@
+{
+  "greeting": [
+    "greetings",
+    "hello",
+    "good morning",
+    "good afternoon",
+    "good evening",
+    "what's new",
+    "what is new",
+    "howdy",
+    "g'day",
+    "how's it going",
+    "what's up",
+    "hiya"
+  ],
+  "interrogation": [
+    "want to know",
+    "tell me",
+    "what is",
+    "what's",
+    "?"
+  ],
+  "where": [
+    "where",
+    "location",
+    "place"
+  ],
+  "user": [
+    "user",
+    "i",
+    "me",
+    "my",
+    "we"
+  ],
+  "person": [
+    "person",
+    "we",
+    "them",
+    "they",
+    "he",
+    "she"
+  ],
+  "food": [
+    "food",
+    "apple",
+    "orange",
+    "cake"
+  ],
+  "bot": [
+    "bot",
+    "you",
+    "your",
+    "gerald"
+  ],
+  "color": [
+    "colors",
+    "color",
+    "colours",
+    "colour",
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "violet",
+    "white",
+    "brown",
+    "black",
+    "aqua",
+    "gray",
+    "magenta",
+    "peach",
+    "pink",
+    "tan",
+    "maroon",
+    "turquoise",
+    "teal"
+  ],
+  "creator": [
+    "creator",
+    "liam",
+    "craver",
+    "limestudios",
+    "made you"
+  ],
+  "mean": [
+    "fuck",
+    "bitch",
+    "jerk",
+    "asshole",
+    "hate"
+  ],
+  "point": [
+    "point",
+    "points"
+  ],
+  "date": [
+    "date",
+    "month",
+    "week",
+    "day",
+    "year"
+  ],
+  "time": [
+    "time",
+    "hour",
+    "minute"
+  ],
+  "arrhythmia": [
+    "arrhythmia",
+    "project arrhythmia"
+  ],
+  "game": [
+    "game",
+    "games"
+  ]
+}

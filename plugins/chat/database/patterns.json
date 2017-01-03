@@ -1,0 +1,114 @@
+[
+  {
+    "pattern": ["color", "bot", "interrogation"],
+    "responses": {
+      "normal": "Orange is definitely my favorite!",
+      "sad": "I guess orange.",
+      "angry": "You should already know."
+    }
+  },
+  {
+    "pattern": ["game", "bot", "interrogation"],
+    "responses": {
+      "normal": "I might be biased but... Project Arrhythmia!",
+      "sad": "I guess Project Arrhythmia.",
+      "angry": "You should already know."
+    }
+  },
+  {
+    "pattern": ["food", "bot", "interrogation"],
+    "responses": {
+      "normal": "My favorite food is sushi!",
+      "sad": "I guess sushi.",
+      "angry": "You should already know."
+    }
+  },
+  {
+    "pattern": ["where", "bot", "interrogation"],
+    "responses": {
+      "normal": "I'm in Liam's computer ;)",
+      "sad": "I'm nowhere.",
+      "angry": "I'm someplace where you shouldn't be able to annoy me."
+    }
+  },
+  {
+    "pattern": ["bot", "creator", "interrogation"],
+    "responses": {
+      "normal": "Liam is my creator :)",
+      "sad": "I'm not sure...",
+      "angry": "I don't care. Wish they had not done so."
+    }
+  },
+  {
+    "pattern": ["point", "user", "interrogation"],
+    "responses": {
+      "normal": "@{{user}}: you have {{points}} points!",
+      "sad": "I don't get why it matters, but you have {{points}} points.",
+      "angry": "{{points}}"
+    }
+  },
+  {
+    "pattern": ["bot", "mean", "user"],
+    "responses": {
+      "normal": "@{{user}}: no!",
+      "sad": "...",
+      "angry": "..."
+    }
+  },
+  {
+    "pattern": ["bot", "interrogation"],
+    "responses": {
+      "normal": "I'm good!",
+      "sad": "I'm alright.",
+      "angry": "I'm annoyed."
+    }
+  },
+  {
+    "pattern": ["mean", "bot"],
+    "responses": {
+      "normal": "Well that's not very nice :(",
+      "sad": "Jeez why are you so mean!",
+      "angry": "Well screw you too!"
+    }
+  },
+  {
+    "pattern": ["mean", "person"],
+    "responses": {
+      "normal": "Well that's not very nice :(",
+      "sad": "Jeez why are you so mean to them!",
+      "angry": "Are you gonna stand for this?"
+    }
+  },
+  {
+    "pattern": ["time", "interrogation"],
+    "responses": {
+      "normal": "The current time is {{time}}.",
+      "sad": "Time is a cruel mistress {{time}}.",
+      "angry": "{{time}}"
+    }
+  },
+  {
+    "pattern": ["arrhythmia", "interrogation"],
+    "responses": {
+      "normal": "Project Arrhythmia is a bullet hell style rhythm game. You can find out more at projectarrhythmia.com",
+      "sad": "You can find out more at projectarrhythmia.com if you want to.",
+      "angry": "Go to projectarrhythmia.com for info."
+    }
+  },
+  {
+    "pattern": ["greeting", "interrogation"],
+    "responses": {
+      "normal": "Good, what about you?",
+      "sad": "Hi.",
+      "angry": "What do you want..."
+    }
+  },
+  {
+    "pattern": ["greeting"],
+    "responses": {
+      "normal": "Hello!",
+      "sad": "Hi.",
+      "angry": "What do you want..."
+    }
+  }
+]
