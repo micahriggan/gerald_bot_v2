@@ -1,0 +1,72 @@
+/*Content Section*/
+section.content {
+  padding: 16px;
+  position: absolute;
+  left: 220px;
+  right: 0px;
+  display: block;
+  float:right;
+}
+
+h2 {
+  color: #424242;
+  font-size: 24px;
+  font-family: "Roboto", Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  padding: 16px 0 24px 0;
+  margin: 0 auto;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 40px;
+}
+
+.logs ul.list {
+  /*background-color: #FFF2E8;*/
+  /*border-radius: 3px;*/
+  /*padding: 16px;*/
+  padding: 0;
+  margin: 0;
+}
+
+.logs ul.list li {
+  list-style: none;
+  padding: 0 0 8px 0;
+}
+
+.logs ul.list li:last-child {
+  padding: 0;
+}
+
+.logs ul.list li span.date {
+  /*background-color: orange;*/
+}
+
+.logs ul.list li span.avatar {
+  background-color: black;
+  width: 32px;
+  height: 32px;
+  display: block;
+  float: left;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 32px;
+  color: #FAFAFA;
+  -webkit-user-select: none;
+  cursor: default;
+  text-transform: uppercase;
+  border-radius: 100%;
+  font-weight: 700;
+}
+
+.logs ul.list li span.message {
+  /*line-height: 32px;*/
+  background-color: #37474F;
+  display: block;
+  margin-left: 48px;
+  border-radius: 16px;
+  padding: 6px 8px;
+  color: #FAFAFA;
+  font-family: "Roboto", Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  white-space: pre-line;
+}

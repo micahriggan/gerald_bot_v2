@@ -1,0 +1,53 @@
+/*Nav Side Bar*/
+section.sidebar {
+  width: 220px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  display: block;
+  background-color: white;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+section.sidebar .logo {
+  background-color: #FFF2E8;
+  height: 128px;
+  border-bottom: 1px solid #555;
+}
+
+section.sidebar .logo img {
+  height: 96px;
+  padding: 16px;
+  display: block;
+}
+
+section.sidebar .logo .name {
+  position: absolute;
+  top: 44px;
+  right: 32px;
+  font-size: 18px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+section.sidebar nav {
+  /*padding: 12px 0;*/
+}
+
+section.sidebar nav div {
+  padding: 18px 0 18px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background-color 0.1s ease-out;
+}
+
+section.sidebar nav div.active {
+  border-left: 4px solid #FFA726;
+  background-color: #ccc;
+  padding-left: 20px;
+}
+
+section.sidebar nav div:hover {
+  background-color: #eee;
+}

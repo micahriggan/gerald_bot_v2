@@ -1,26 +1,5 @@
 'use strict';
 
-/**
- * Test plugin example
- *
- * There must be an 'index.js' file for each plugin!
- * Plugins can then require additional files, if needed.
- *
- * Command 1:
- *
- * The first command will respond to any message with
- * with the contents 'test'. The bot will reply with
- * a string: 'I heard test!'.
- *
- * Command 2:
- *
- * The second command is a startup command. It will be called
- * during start up, after connecting to the server.
- * It logs out the string, "Starting the test plugin".
- * You can use startup commands to initialize storage mechanisms,
- * or to connect to APIs, etc, etc.
- */
-
 const runtime = require('../../utils/Runtime');
 const Client = require('../../utils/Client');
 var express = require('express');
@@ -116,9 +95,88 @@ module.exports = [{
 			res.send(usersToReturn);
 		});
 
+		app.get('/logs', function(req, res)
+		{
+			var logs = runtime.brain.get('userMessages') || {};
+			var usersInLog = Object.keys(logs);
+
+			let messagesToReturn = [];
+
+			for(var i = 0; i < usersInLog.length; i++)
+			{
+				let lastMessage = "";
+				var tmpUser = usersInLog[i];
+				for(var j = 0; j < logs[tmpUser].messages.length; j++)
+				{
+					let currentMessage = logs[tmpUser].messages[j].message;
+					if(currentMessage != "available")
+					{
+						var tmpMessageObj = {
+							"username": tmpUser,
+							"username_short": shortenUsername(tmpUser),
+							"message": currentMessage,
+							"time": logs[tmpUser].messages[j].time,
+							"full_time": timeConverter(logs[tmpUser].messages[j].time),
+							"display_time": displayTimeConverter(logs[tmpUser].messages[j].time)
+						};
+
+						messagesToReturn.push(tmpMessageObj);
+					}
+					lastMessage = currentMessage;
+				}
+			}
+
+			res.send(messagesToReturn);
+		});
+
+		app.post('/logs', function(req, res)
+		{
+			res.sendStatus(200);
+			runtime.brain.set('userMessages', {});
+			console.log("Deleting Logs!");
+		});
+
 		app.listen(app.get('port'),  function () {
-			console.log('Hello express started on http://localhost:' +
+			console.log('Interface started on http://localhost:' +
 			app.get('port') + '; press Ctrl-C to terminate.' );
 		});
   }
 }];
+
+function shortenUsername(username) {
+	if(username.includes(" "))
+	{
+		let splits = username.split(" ", 2);
+		return splits[0].substr(0, 1) + splits[1].substr(0, 1);
+	}
+	else if(username.includes("_"))
+	{
+		let splits = username.split("_", 2);
+		return splits[0].substr(0, 1) + splits[1].substr(0, 1);
+	}
+	else if(username.includes("-"))
+	{
+		let splits = username.split("-", 2);
+		return splits[0].substr(0, 1) + splits[1].substr(0, 1);
+	}
+	else
+	{
+		return username.substr(0, 2);
+	}
+}
+
+function timeConverter(time){
+	var newDate = new Date();
+	newDate.setTime(time);
+	return newDate.toLocaleString();
+}
+
+function displayTimeConverter(time){
+	var newDate = new Date();
+	newDate.setTime(time);
+	var newDate2 = new Date();
+	if(newDate.toLocaleDateString() == newDate2.toLocaleDateString())
+		return newDate.toLocaleTimeString();
+	else
+		return newDate.toLocaleDateString();
+}

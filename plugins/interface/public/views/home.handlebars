@@ -1,9 +1,9 @@
 <div ng-switch on="view">
-  <div ng-switch-when="dashboard">{{> dashboard}}</div>
-  <div ng-switch-when="commands">{{> commands}}</div>
-  <div ng-switch-when="giveaways">{{> giveaways}}</div>
-  <div ng-switch-when="donations">{{> donations}}</div>
-  <div ng-switch-when="logs">{{> logs}}</div>
-  <div ng-switch-when="settings">{{> settings}}</div>
-  <div ng-switch-default>You aren't supposed to see this...</div>
+  <div class="dashboard" ng-switch-when="dashboard">{{> dashboard}}</div>
+  <div class="commands" ng-switch-when="commands">{{> commands}}</div>
+  <div class="giveaways" ng-switch-when="giveaways">{{> giveaways}}</div>
+  <div class="donations" ng-switch-when="donations">{{> donations}}</div>
+  <div class="logs" ng-switch-when="logs">{{> logs}}</div>
+  <div class="settings" ng-switch-when="settings">{{> settings}}</div>
+  <div class="error" ng-switch-default>You aren't supposed to see this...</div>
 </div>

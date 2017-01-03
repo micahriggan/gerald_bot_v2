@@ -10,7 +10,8 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
 
   // Master Variables
   $rootScope.users = [];
-  $scope.view = "dashboard";
+  $rootScope.logs = [];
+  $scope.view = "logs";
 
   // Begin Update Loop
   setInterval(function(){
@@ -26,6 +27,16 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
     }, function errorCallback(response) {
       console.log(response);
     });
+
+    $http({
+      method: 'GET',
+      url: 'http://localhost:3000/logs'
+    }).then(function successCallback(logData) {
+      $rootScope.logs = logData.data;
+      console.log(logData.data);
+    }, function errorCallback(response) {
+      console.log(response);
+    });
   };
 
   $rootScope.isActiveView = function (view) {
@@ -33,6 +44,22 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
       return "active";
     else
       return "";
+  };
+
+  $rootScope.clearLogs = function () {
+    $http({
+      method: 'POST',
+      url: 'http://localhost:3000/logs',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: { test: 'test' }
+    }).then(function successCallback(logData) {
+      $rootScope.logs = [];
+      console.log("Logs Cleared!");
+    }, function errorCallback(response) {
+      console.log(response);
+    });
   };
 
   // Call on load once
