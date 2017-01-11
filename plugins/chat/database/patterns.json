@@ -2,7 +2,7 @@
   {
     "pattern": ["color", "bot", "interrogation"],
     "responses": {
-      "normal": "Orange is definitely my favorite!",
+      "normal": "Orange is {{syn:confirmation}} my favorite!",
       "sad": "I guess orange.",
       "angry": "You should already know."
     }
@@ -48,6 +48,14 @@
     }
   },
   {
+    "pattern": ["bot", "joke", "interrogation"],
+    "responses": {
+      "normal": "{{syn:joke}}",
+      "sad": "I don't feel like telling any jokes right now...",
+      "angry": "I'm too annoyed to be telling a joke."
+    }
+  },
+  {
     "pattern": ["bot", "mean", "user"],
     "responses": {
       "normal": "@{{user}}: no!",
@@ -58,7 +66,7 @@
   {
     "pattern": ["bot", "interrogation"],
     "responses": {
-      "normal": "I'm good!",
+      "normal": "I'm {{syn:good}}!",
       "sad": "I'm alright.",
       "angry": "I'm annoyed."
     }
@@ -98,7 +106,7 @@
   {
     "pattern": ["greeting", "interrogation"],
     "responses": {
-      "normal": "Good, what about you?",
+      "normal": "{{syn:good}}, what about you?",
       "sad": "Hi.",
       "angry": "What do you want..."
     }
@@ -106,7 +114,7 @@
   {
     "pattern": ["greeting"],
     "responses": {
-      "normal": "Hello!",
+      "normal": "{{syn:greeting}}!",
       "sad": "Hi.",
       "angry": "What do you want..."
     }

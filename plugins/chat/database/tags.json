@@ -113,5 +113,9 @@
   "game": [
     "game",
     "games"
+  ],
+  "joke": [
+    "joke",
+    "jokes"
   ]
 }

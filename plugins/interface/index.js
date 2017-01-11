@@ -136,12 +136,20 @@ module.exports = [{
 			console.log("Deleting Logs!");
 		});
 
+		app.get('/chat/db/:type', function(req, res, type)
+		{
+			let baseDir = __dirname.substr(0, __dirname.lastIndexOf("\\"));
+			res.sendFile(baseDir + "/chat/database/"+req.params.type+".json");
+		});
+
 		app.listen(app.get('port'),  function () {
 			console.log('Interface started on http://localhost:' +
 			app.get('port') + '; press Ctrl-C to terminate.' );
 		});
   }
 }];
+
+module.exports.appAPI = app;
 
 function shortenUsername(username) {
 	if(username.includes(" "))
@@ -180,3 +188,6 @@ function displayTimeConverter(time){
 	else
 		return newDate.toLocaleDateString();
 }
+
+
+// ---- Functions to Setup plugin API calls ---- //

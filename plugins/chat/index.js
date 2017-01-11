@@ -22,6 +22,7 @@ const pluginSettings = require('./settings.json');
 
 const TagDB = require('./database/tags.json');
 const PatternDB = require('./database/patterns.json');
+const SynonymsDB = require('./database/synonyms.json');
 //const pluginSettings = require('./settings.json');
 
 const geraldChatReplace = "@" + runtime.credentials.username + ": ";
@@ -29,6 +30,19 @@ const geraldChatReplace = "@" + runtime.credentials.username + ": ";
 let BOTMOOD = "normal";
 
 module.exports = [{
+    types: ['startup'],
+  	action: function(chat, stanza) {
+      let interfaceRef = require('../interface/index');
+      console.log(interfaceRef);
+      let appAPI = interfaceRef.appAPI;
+
+      appAPI.get('/chattest', function(req, res)
+  		{
+  			res.send("fuck yeah!");
+  		});
+    }
+  },
+  {
 	name: 'Chat',
 	help: 'Captures messages to gerald and chats with user.',
   types: ['message'],
@@ -135,8 +149,8 @@ function GetPattern(pattern) {
       }
     }
 
-    console.log(bestPattern.numOfMatchesTotal + "<" + currentPattern.numOfMatchesTotal);
-    console.log(bestPattern.numOfMatchesInOrder + "<=" + currentPattern.numOfMatchesInOrder);
+    //console.log(bestPattern.numOfMatchesTotal + "<" + currentPattern.numOfMatchesTotal);
+    //console.log(bestPattern.numOfMatchesInOrder + "<=" + currentPattern.numOfMatchesInOrder);
 
     if(bestPattern.numOfMatchesTotal <= currentPattern.numOfMatchesTotal)
     {
@@ -151,7 +165,7 @@ function GetPattern(pattern) {
       }
     }
 
-    console.log("\n\n");
+    //console.log("\n\n");
   }
 
   return bestPattern;
@@ -167,8 +181,46 @@ function GetResponse(stanza, response) {
 
   let date = new Date();
   let current_hour = date.getHours();
-  let current_minutes = date.getMinutes();
+  if(current_hour < 10)
+    current_hour = "0" + current_hour;
+
+  let current_minutes = date.getMinutes("");
+  if(current_minutes < 10)
+    current_minutes = "0" + current_minutes;
+
   response = response.replace("{{time}}", current_hour + ":" + current_minutes);
 
+  let synRegEx = /{{syn:.*}}/g;
+
+  let thingsToSwitch = [];
+  let match;
+
+  while((match = synRegEx.exec(response)) !== null)
+  {
+    let synBaseStr = match[0];
+    console.log(synBaseStr);
+    let synToReplace = synBaseStr.substring(6, synBaseStr.length - 2);
+    console.log(synToReplace);
+    console.log(SynonymsDB[synToReplace]);
+    let replacement = SynonymsDB[synToReplace][getRandomInt(0, SynonymsDB[synToReplace].length)];
+    thingsToSwitch.push(
+      {
+        base: synBaseStr,
+        replacement: replacement
+      }
+    );
+  }
+
+  for(let i = 0; i < thingsToSwitch.length; i++)
+    response = response.replace(thingsToSwitch[i].base, thingsToSwitch[i].replacement);
+
+  console.log(thingsToSwitch);
+
   return response;
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
 }
