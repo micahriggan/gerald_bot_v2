@@ -1,5 +1,4 @@
-# gerald_bot_v2
-Base bot created by owenconti
+# Gerald Bot v2
 
 ### This node app requires node v4 or greater to work correctly!
 
@@ -11,7 +10,6 @@ The list of official plugins for the bot can be found on this repo: [https://git
 Instructions for writing your own plugins can also be found in the repo above.
 
 ## Setup
-
 1) Clone / Fork the repo
 
 2) Create a `/setup/custom/credentials.js` file and `/setup/custom/settings.json` file.
@@ -134,7 +132,7 @@ Plugins can be composed of multiple commands. Commands can have four attributes:
 ```
 * types
 	* Types must be an array, and can contain multiple types.
-	* Valid types are: `message` `presence` `startup` `websocket`
+	* Valid types are: `message` `presence` `startup` `interface` `reocurring` `websocket`
 	* `message` types are parsed when an incoming chat message is received
 	* `presence` types are parsed when an incoming presence (user joined/left) is received
 	* `startup` types are parsed and ran during start up
