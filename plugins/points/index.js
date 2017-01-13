@@ -6,6 +6,17 @@ const Client = require('../../utils/Client');
 const pluginSettings = require('./settings.json');
 
 module.exports = [{
+    types: ['interface'],
+  	action: function(api) {
+
+      api.get('/points', function(req, res)
+  		{
+				let pointData = runtime.brain.get('points') || {};
+  			res.send(pointData);
+  		});
+    }
+  },
+	{
 	name: '!points',
 	help: 'Shows the user their points.',
   types: ['message'],

@@ -138,6 +138,8 @@ Plugins can be composed of multiple commands. Commands can have four attributes:
 	* `message` types are parsed when an incoming chat message is received
 	* `presence` types are parsed when an incoming presence (user joined/left) is received
 	* `startup` types are parsed and ran during start up
+	* `interface` types are parsed and ran during start up to create api / interface components
+	* `reocurring` types are parsed and ran repeating after a set amount of time
 	* `websocket` types are parsed when an incoming websocket message is received
 * regex
 	* The `regex` attribute is used to determine the incoming stanza matches the command.
@@ -149,7 +151,7 @@ Plugins can be composed of multiple commands. Commands can have four attributes:
 * action
 	* The `action` attribute is a function that is called if the `regex` for the command matches.
 	* The logic for the command should reside inside the `action` attribute.
-	* `action` is passed 2 parameters:
+	* `action` is passed a combination of these 3 parameters:
 		1. `chat` - an instance of the Client object
 		2. `stanza` - the parsed stanza containing:
 		```
@@ -160,7 +162,6 @@ Plugins can be composed of multiple commands. Commands can have four attributes:
 			rateLimited: boolean to determine if the user is rateLimited
 		}
 		```
+		1. `api` - an reference to the Express.js object that the interface uses
 	* The `stanza` parameter is not passed to `startup` commands.
-
-
-See the examples directory for an example of creating a plugin.
+	* The `api` parameter is not passed to anything but `interface` commands.

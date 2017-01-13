@@ -1,5 +1,7 @@
 'use strict';
 
+// ---- Prototypes ---- //
+
 // Escapes Regular Expression String
 RegExp.escape = function(s) {
    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -15,6 +17,8 @@ String.prototype.indexOfRegex = function(regex){
   return match ? this.indexOf(match[0]) : -1;
 }
 
+// ---- References ---- //
+
 const Say = require('../../utils/Say');
 const runtime = require('../../utils/Runtime');
 const Client = require('../../utils/Client');
@@ -23,22 +27,21 @@ const pluginSettings = require('./settings.json');
 const TagDB = require('./database/tags.json');
 const PatternDB = require('./database/patterns.json');
 const SynonymsDB = require('./database/synonyms.json');
-//const pluginSettings = require('./settings.json');
 
 const geraldChatReplace = "@" + runtime.credentials.username + ": ";
 
 let BOTMOOD = "normal";
 
-module.exports = [{
-    types: ['startup'],
-  	action: function(chat, stanza) {
-      let interfaceRef = require('../interface/index');
-      console.log(interfaceRef);
-      let appAPI = interfaceRef.appAPI;
+// ---- Functions ---- //
 
-      appAPI.get('/chattest', function(req, res)
+module.exports = [{
+    types: ['interface'],
+  	action: function(api) {
+
+      api.get('/chat/db/:type', function(req, res, type)
   		{
-  			res.send("fuck yeah!");
+  			let baseDir = __dirname.substr(0, __dirname.lastIndexOf("\\"));
+  			res.sendFile(baseDir + "/chat/database/"+req.params.type+".json");
   		});
     }
   },

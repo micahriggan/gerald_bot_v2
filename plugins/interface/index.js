@@ -9,27 +9,8 @@ var router = express.Router();
 var exphbs = require('express-handlebars');
 
 module.exports = [{
-	types: ['message'],
-	regex: /^test$/,
-	action: function(chat, stanza) {
-		console.log("STANZA: \n");
-		console.log(stanza);
-
-		console.log("CHAT: \n");
-		console.log(chat);
-
-		chat.sendMessage('I heard test!');
-	}
-},
-{
-	types: ['reoccuring'],
-	regex: /^test$/,
-	action: function(chat, stanza) {
-
-	}
-}, {
 	types: ['startup'],
-	action: function(chat, stanza) {
+	action: function(chat) {
 
 		let baseURL = __dirname + "\\public";
 
@@ -134,12 +115,6 @@ module.exports = [{
 			res.sendStatus(200);
 			runtime.brain.set('userMessages', {});
 			console.log("Deleting Logs!");
-		});
-
-		app.get('/chat/db/:type', function(req, res, type)
-		{
-			let baseDir = __dirname.substr(0, __dirname.lastIndexOf("\\"));
-			res.sendFile(baseDir + "/chat/database/"+req.params.type+".json");
 		});
 
 		app.listen(app.get('port'),  function () {

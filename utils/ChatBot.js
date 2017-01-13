@@ -10,32 +10,34 @@ let runtime = require('./Runtime');
 class ChatBot {
 	static start() {
 		// Load core commands
-		Loader.loadCoreCommands( ( coreCommands ) => {
+		Loader.loadCoreCommands((coreCommands) => {
 			// coreCommands is returned as an object with
 			// each message type as an array
 			runtime.coreCommands = coreCommands;
 
 			// Load plugin commands
-			Loader.loadPluginCommands( ( pluginCommands, pluginWebsocketFiles ) => {
+			Loader.loadPluginCommands((pluginCommands, pluginWebsocketFiles) => {
 				runtime.pluginCommands = pluginCommands;
 				runtime.pluginWebsocketFiles = pluginWebsocketFiles;
 
 				// Load the client (connects to server)
-				let chat = new Client( runtime.credentials );
+				let chat = new Client(runtime.credentials);
+				let api = require('../plugins/interface/index').appAPI;
 
 				// Run any start up commands
-				ChatBot.runStartupCommands( chat );
+				ChatBot.runStartupCommands(chat);
+				ChatBot.runInterfaceCommands(api);
 
 				// Run any start up commands
 				ChatBot.startUpdateLoop(chat);
 
 				// Start the websocket server
-				Websocket.start( chat );
+				Websocket.start(chat);
 
 				// Start listening for stanzas
-				ChatBot.listenForStanzas( chat );
-			} );
-		} );
+				ChatBot.listenForStanzas(chat);
+			});
+		});
 	}
 
 	static startUpdateLoop(chat) {
@@ -44,12 +46,12 @@ class ChatBot {
 			console.log("-- Update Tick --");
 
 			// Loop through each startup core commands, and run the action
-			runtime.coreCommands.reoccuring.forEach( function( command ) {
+			runtime.coreCommands.reoccuring.forEach(function(command) {
 				command.action(chat);
 			});
 
 			// Loop through each startup plugin commands, and run the action
-			runtime.pluginCommands.reoccuring.forEach( function( command ) {
+			runtime.pluginCommands.reoccuring.forEach(function(command) {
 				command.action(chat);
 			});
 
@@ -67,15 +69,32 @@ class ChatBot {
 	 * for both core and plugin commands.
 	 * @return {void}
 	 */
-	static runStartupCommands( chat ) {
+	static runStartupCommands(chat) {
 		// Loop through each startup core commands, and run the action
-		runtime.coreCommands.startup.forEach( function( command ) {
-			command.action( chat );
+		runtime.coreCommands.startup.forEach(function(command) {
+			command.action(chat);
 		});
 
 		// Loop through each startup plugin commands, and run the action
-		runtime.pluginCommands.startup.forEach( function( command ) {
-			command.action( chat );
+		runtime.pluginCommands.startup.forEach(function(command) {
+			command.action(chat);
+		});
+	}
+
+	/**
+	 * Run any of the 'interface' type commands
+	 * for both core and plugin commands.
+	 * @return {void}
+	 */
+	static runInterfaceCommands(api) {
+		// Loop through each startup core commands, and run the action
+		runtime.coreCommands.interface.forEach(function(command) {
+			command.action(api);
+		});
+
+		// Loop through each startup plugin commands, and run the action
+		runtime.pluginCommands.interface.forEach(function(command) {
+			command.action(api);
 		});
 	}
 
@@ -93,9 +112,9 @@ class ChatBot {
 				return;
 			}
 
-            runtime.brain.start( __dirname + '/../brain' );
+    	runtime.brain.start( __dirname + '/../brain' );
 
-            // Grab the incoming stanza, and parse it
+      // Grab the incoming stanza, and parse it
 			let parsedStanza = Client.parseStanza( stanza, runtime.credentials );
 			if ( !parsedStanza ) {
 				return;
@@ -125,10 +144,10 @@ class ChatBot {
 			}
 
 			// Update the user's message log
-            Client.updateMessageLog( parsedStanza );
+      Client.updateMessageLog(parsedStanza);
 
-            Log.log( JSON.stringify( parsedStanza, null, 4 ) );
-		} );
+      Log.log(JSON.stringify(parsedStanza, null, 4));
+		});
 	}
 
 	/**
@@ -139,7 +158,7 @@ class ChatBot {
 	 * @param  {Client} chat
 	 * @return {void}
 	 */
-	static runCommand( command, parsedStanza, chat ) {
+	static runCommand(command, parsedStanza, chat) {
 
 		try {
 			var regexMatched =  command.regex && command.regex.test( parsedStanza.message.toLowerCase() );

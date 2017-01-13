@@ -1,4 +1,5 @@
 {
-    "minPointPurge": 5,
-    "test": false
+  "description": "A plugin to keep track of points for followers.",
+  "minPointPurge": 5,
+  "test": false
 }

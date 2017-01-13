@@ -21,7 +21,7 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
   $rootScope.updateInterface = function () {
     $http({
       method: 'GET',
-      url: 'http://localhost:3000/users'
+      url: 'http://localhost:8000/users'
     }).then(function successCallback(queueData) {
       $rootScope.users = queueData.data;
     }, function errorCallback(response) {
@@ -30,7 +30,7 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
 
     $http({
       method: 'GET',
-      url: 'http://localhost:3000/logs'
+      url: 'http://localhost:8000/logs'
     }).then(function successCallback(logData) {
       $rootScope.logs = logData.data;
       console.log(logData.data);
@@ -49,7 +49,7 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
   $rootScope.clearLogs = function () {
     $http({
       method: 'POST',
-      url: 'http://localhost:3000/logs',
+      url: 'http://localhost:8000/logs',
       headers: {
         'Content-Type': 'application/json'
       },
