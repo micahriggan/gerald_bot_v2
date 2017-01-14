@@ -1,6 +1,7 @@
 # Gerald Bot v2
 
-### This node app requires node v4 or greater to work correctly!
+## Support
+If you found gerald useful please consider supporting his development through patreon : [https://www.patreon.com/limestudios](https://www.patreon.com/limestudios)
 
 ## Changelog
 [https://github.com/lcraver/gerald_bot_v2/blob/master/changelog.md](https://github.com/lcraver/gerald_bot_v2/blob/master/changelog.md)
@@ -10,17 +11,20 @@ The list of official plugins for the bot can be found on this repo: [https://git
 Instructions for writing your own plugins can also be found in the repo above.
 
 ## Setup
-1) Clone / Fork the repo
 
-2) Create a `/setup/custom/credentials.js` file and `/setup/custom/settings.json` file.
+1) Make sure you have node v4 or greater installed.
 
-3) Find your XMPP password on LCTV page.
+2) Clone / Fork the repo
+
+3) Create a `/setup/custom/credentials.js` file and `/setup/custom/settings.json` file.
+
+4) Find your XMPP password on LCTV page.
 	1. Open your live stream page (https://www.livecoding.tv/USERNAME)
 	2. Open Dev Tools and switch to the Elements tab
 	3. Search the HTML content for "password".
 	4. The XMPP password will be a long string in an object containing 'jid' and 'password'.
 
-4) Fill in the `/setup/custom/credentials.js` file with the following format:
+5) Fill in the `/setup/custom/credentials.js` file with the following format:
 
 ```
 var username = 'LCTV_BOT_USERNAME'; // Must be an existing user
@@ -37,7 +41,7 @@ module.exports = {
 
 ```
 
-5) Fill `/setup/custom/settings.json` with the following JSON data:
+6) Fill `/setup/custom/settings.json` with the following JSON data:
 
 ```
 
@@ -50,11 +54,11 @@ module.exports = {
 
 ```
 
-6) Run `npm install`
+7) Run `npm install`
 
-7) Run with `node index.js` or `npm start`.
+8) Run with `node index.js` or `npm start`.
 
-8) Some commands require extra API keys or specific variables. You can use the `credentials.js` file to store these variables.
+9) Some commands require extra API keys or specific variables. You can use the `credentials.js` file to store these variables.
 
 ```
 module.exports = {
@@ -66,7 +70,7 @@ module.exports = {
 };
 ```
 
-9) At this point the bot should be running and waiting for your commands!
+10) At this point the bot should be running and waiting for your commands!
 
 ## Custom command credentials
 
