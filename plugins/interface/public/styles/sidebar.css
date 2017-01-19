@@ -40,6 +40,7 @@ section.sidebar nav div {
   font-size: 13px;
   font-weight: 700;
   transition: background-color 0.1s ease-out;
+  cursor: pointer;
 }
 
 section.sidebar nav div.active {

@@ -5,6 +5,7 @@ const path = require('path');
 const Log = require('./Log');
 const Settings = require('./Settings');
 const commandTypes = ['message', 'presence', 'startup', 'websocket', 'reoccuring', 'interface'];
+let runtime = require('./Runtime');
 
 class Loader {
 	/**
@@ -75,25 +76,42 @@ class Loader {
 			}
 
 			folders.forEach( ( pluginName ) => {
-				let pluginIndexFile = path.join( pluginsDir, pluginName, 'index.js' );
-				let pluginClientFile = path.join( pluginsDir, pluginName, 'client.js' );
+				let pluginSettingsFile = {
+					description: "No description."
+				};
+				try {
+					pluginSettingsFile = require(path.join(pluginsDir, pluginName, 'settings.json'));
+				} catch (e) {
+					console.log("No settings file for ["+pluginName+"]");
+				}
+
+				let pluginIndexFile = path.join(pluginsDir, pluginName, 'index.js');
+				let pluginClientFile = path.join(pluginsDir, pluginName, 'client.js');
 
 				// Check settings to see if command is enabled
 				// If command is enabled, load the command
 				let isPluginEnabled = Settings.getSetting('plugins', pluginName);
+
+				// Create list of plugins for use with interface
+				runtime.loadedPlugins.push({
+					active: isPluginEnabled,
+					pluginName: pluginName,
+					pluginDescription: pluginSettingsFile.description || "No description."
+				});
+
 				if ( isPluginEnabled === true ) {
 					Log.log( `[Loader] Plugin loaded: ${pluginName}` );
 
 					// Loop through each command so we can separate out
 					// each command type to its own array.
-					let commands = require( pluginIndexFile );
-					commands.forEach( (command) => {
-						Loader.parseCommandIntoMessageTypes( command, pluginCommands );
-					} );
+					let commands = require(pluginIndexFile);
+					commands.forEach((command) => {
+						Loader.parseCommandIntoMessageTypes(command, pluginCommands);
+					});
 
 					// Load the client.js file, if it exists
 					try {
-						let clientJsFile = require( pluginClientFile );
+						let clientJsFile = require(pluginClientFile);
 						clientJsFile.func = 'var ' + clientJsFile.name + ' = ' + clientJsFile.func + '; ' + clientJsFile.name + '( socket, username, pluginSettings );';
 						pluginClientFiles.push( clientJsFile );
 					} catch( e ) {

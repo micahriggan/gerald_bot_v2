@@ -14,6 +14,12 @@ module.exports = [{
 				let pointData = runtime.brain.get('points') || {};
   			res.send(pointData);
   		});
+
+      api.get('/points/:user', function(req, res)
+  		{
+        let pointData = runtime.brain.get('points') || {};
+  			res.send("{" + pointData[req.params.user] + "}");
+  		});
     }
   },
 	{
@@ -29,6 +35,8 @@ module.exports = [{
 
 		if(pointData != {})
 		{
+      if(userPoints == undefined || userPoints == null)
+        userPoints = 0;
 			let message = "@" + user + ": you have " + userPoints;
 			if(userPoints == 1)
 				message += " point!";
@@ -80,6 +88,10 @@ module.exports = [{
 }, {
 	types: ['startup'],
 	action: function(chat, stanza) {
+
+		console.log(runtime);
+    console.log(runtime.plugins);
+    console.log(runtime.loadedPlugins);
 
 		let pointData = runtime.brain.get('points') || null; // initialize the points storage
 

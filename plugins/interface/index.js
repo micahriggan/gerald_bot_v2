@@ -2,6 +2,7 @@
 
 const runtime = require('../../utils/Runtime');
 const Client = require('../../utils/Client');
+const Settings = require('../../utils/Settings');
 var express = require('express');
 var path = require('path');
 var app = express();
@@ -115,6 +116,32 @@ module.exports = [{
 			res.sendStatus(200);
 			runtime.brain.set('userMessages', {});
 			console.log("Deleting Logs!");
+		});
+
+		app.get('/plugins', function(req, res)
+		{
+			res.send(runtime.loadedPlugins);
+		});
+
+		app.get('/plugins/:pluginToToggle', function(req, res)
+		{
+			let pluginToToggle = req.params.pluginToToggle;
+			let settingValue = Settings.getSetting('plugins', pluginToToggle);
+			res.send(settingValue);
+		});
+
+		app.post('/plugins/:pluginToToggle', function(req, res)
+		{
+			let pluginToToggle = req.params.pluginToToggle;
+			let settingValue = Settings.getSetting('plugins', pluginToToggle);
+			Settings.setSetting('plugins', pluginToToggle, !settingValue);
+			for(let i = 0; i < runtime.loadedPlugins.length; i++)
+				if(runtime.loadedPlugins[i].pluginName == pluginToToggle)
+				{
+					runtime.loadedPlugins[i].active = !settingValue;
+					break;
+				}
+			res.sendStatus(200);
 		});
 
 		app.listen(app.get('port'),  function () {

@@ -1,0 +1,12 @@
+<section class="plugin-list">
+  <div class="plugin" ng-repeat="plugin in plugins" ng-class="{active: plugin.active, inactive: !plugin.active}">
+    <div class="title">{[{plugin.pluginName}]}</div>
+    <div class="description">{[{plugin.pluginDescription}]}</div>
+    <div class="button-bar">
+      <div ng-if="plugin.active && plugin.pluginName != 'interface'" class="toggle" ng-click="togglePlugin(plugin.pluginName)">Deactivate</div>
+      <div ng-if="!plugin.active && plugin.pluginName != 'interface'" class="toggle" ng-click="togglePlugin(plugin.pluginName)">Activate</div>
+      <div ng-if="plugin.pluginName == 'interface'" class="toggle">Active</div>
+      <div class="settings">Settings</div>
+    </div>
+  </div>
+</section>

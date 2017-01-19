@@ -50,7 +50,8 @@
     "bot",
     "you",
     "your",
-    "gerald"
+    "gerald",
+    "u"
   ],
   "color": [
     "colors",
@@ -116,6 +117,7 @@
   ],
   "joke": [
     "joke",
-    "jokes"
+    "jokes",
+    "knock knock"
   ]
 }

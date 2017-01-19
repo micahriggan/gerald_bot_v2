@@ -3,8 +3,10 @@
 const path = require('path');
 let defaultSettings = require('../setup/core/settings.json');
 let customSettings = require('../setup/custom/settings.json');
+const fs = require('fs');
 
 class Settings {
+
 	/**
 	 * Returns a setting with the passed-in key,
 	 * from the specified file.
@@ -27,6 +29,26 @@ class Settings {
 		}
 
 		return null;
+	}
+
+	static setSetting(fileName, key, _newValue) {
+		fileName = path.basename( fileName, '.js' );
+
+		// Check for the setting in custom settings first
+		if ( customSettings[ fileName ] && customSettings[ fileName ][ key ] !== undefined ) {
+			customSettings[fileName][key] = _newValue;
+	    if(err) {
+	        return console.log(err);
+	    }});
+		}
+		else {
+			defaultSettings[fileName][key] = _newValue;
+	    if(err) {
+	        return console.log(err);
+	    }});
+		}
+
+    console.log("The file was saved!");
 	}
 
 	static getSettingFile( fileName ) {

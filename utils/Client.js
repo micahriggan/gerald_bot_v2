@@ -38,8 +38,9 @@ class Client {
      * Sends the bot's presence to the room specified.
      * @return {void}
      */
- 	sendPresence() {
+ 	   sendPresence() {
         Log.log('Sending presence to server');
+
         this.client.send(
             new xmpp.Stanza('presence', {
                 to: this.credentials.roomJid + '/' + this.credentials.username
@@ -231,7 +232,7 @@ class Client {
   		}
 
   		// If presence is unavailable set watching to false
-  		if ( message === 'unavailable' )
+  		if (message === 'unavailable')
         user.watching = false;
       else
         user.watching = true;

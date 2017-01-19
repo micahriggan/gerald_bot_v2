@@ -11,7 +11,21 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
   // Master Variables
   $rootScope.users = [];
   $rootScope.logs = [];
-  $scope.view = "logs";
+  $scope.view = "plugins";
+  $rootScope.plugins = [];
+  $rootScope.toasts = [];
+
+  $rootScope.startInterface = function () {
+    $http({
+      method: 'GET',
+      url: 'http://localhost:8000/plugins'
+    }).then(function successCallback(pluginData) {
+      $rootScope.plugins = pluginData.data;
+    }, function errorCallback(response) {
+      console.log(response);
+    });
+  };
+  $rootScope.startInterface();
 
   // Begin Update Loop
   setInterval(function(){
@@ -62,10 +76,54 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
     });
   };
 
+  $rootScope.togglePlugin = function (pluginName) {
+    $http({
+      method: 'POST',
+      url: 'http://localhost:8000/plugins/' + pluginName,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: { test: 'test' }
+    }).then(function successCallback(logData) {
+      console.log("Plugin Toggled ["+pluginName+"]!");
+    }, function errorCallback(response) {
+      console.log(response);
+    });
+
+    $rootScope.addToast("Restart bot to reflect changes.", 5000);
+
+    $rootScope.startInterface();
+  };
+
+  // TODO fix toasts glitch
+  $rootScope.addToast = function (text, time) {
+    if($rootScope.toasts.indexOf(text) <= -1)
+    {
+      $rootScope.toasts.push(text);
+      setTimeout(function() {
+        remove(text, $rootScope.toasts);
+      }, time);
+    }
+  };
+
   // Call on load once
   $rootScope.updateInterface();
 
 });
+
+function remove(what, arr) {
+    var found = arr.indexOf(what);
+
+    while (found !== -1) {
+        arr.splice(found, 1);
+        found = arr.indexOf(what);
+    }
+}
+
+function arrayContains(needle, arrhaystack)
+{
+    return (arrhaystack.indexOf(needle) > -1);
+}
 
 /*
 

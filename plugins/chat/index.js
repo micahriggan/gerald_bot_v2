@@ -55,12 +55,13 @@ module.exports = [{
 		let userMessage = stanza.message.replace(geraldChatReplace, '');
 
     let tags = GetTags(userMessage);
-		chat.sendMessage("Tags: [" + tags.toString() + "]");
+		//chat.sendMessage("Tags: [" + tags.toString() + "]");
     let tagPattern = GetPattern(tags);
-    chat.sendMessage("Best Pattern: [" + tagPattern.pattern.toString() + "]");
+    //chat.sendMessage("Best Pattern: [" + tagPattern.pattern.toString() + "]");
     //chat.sendMessage("Response: [" + tagPattern.responses[BOTMOOD].toString() + "]");
     let response = GetResponse(stanza, tagPattern.responses[BOTMOOD]);
-    chat.sendMessage("Response Final: " + response.toString());
+    //chat.sendMessage("Response Final: " + response.toString());
+    chat.sendMessage(response.toString());
 
     Say.say(response.toString(), "Zira");
   }

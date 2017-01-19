@@ -24,6 +24,14 @@ class ChatBot {
 				let chat = new Client(runtime.credentials);
 				let api = require('../plugins/interface/index').appAPI;
 
+				let users = runtime.brain.get('users') || {};
+				let userList = Object.keys(users);
+
+				for(let i = 0; i < userList.length; i++)
+					users[userList[i]].watching = false;
+
+				runtime.brain.set('users', users);
+
 				// Run any start up commands
 				ChatBot.runStartupCommands(chat);
 				ChatBot.runInterfaceCommands(api);

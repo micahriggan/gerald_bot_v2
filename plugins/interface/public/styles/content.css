@@ -70,3 +70,82 @@ h2 {
   font-weight: 200;
   white-space: pre-line;
 }
+
+
+.plugins .plugin-list .plugin {
+  width: calc(33% - 10.66666666666667px);
+  height: 220px;
+  background: white;
+  float: left;
+  margin-right: 16px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.plugins .plugin-list .plugin.inactive {
+  opacity: 0.5;
+  height: 218px;
+  width: calc(33% - 10.66666666666667px - 2px);
+  border: 1px solid rgba(1,1,1,0.5);
+}
+
+.plugins .plugin-list .plugin:nth-child(3) {
+  margin-right: 0;
+}
+
+.plugins .plugin-list .plugin .title {
+  font-size: 32px;
+  padding: 24px;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.plugins .plugin-list .plugin .description {
+  font-size: 16px;
+  padding-left: 24px;
+}
+
+.plugins .plugin-list .plugin .button-bar {
+  height: 64px;
+  border-top: 1px solid rgba(1,1,1,0.2);
+  position: absolute;
+  bottom: 0;
+  display: block;
+  width: calc(100% - 64px);
+  padding: 0 32px;
+}
+
+.plugins .plugin-list .plugin .button-bar div {
+  line-height: 64px;
+  float: left;
+  padding-right: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.1s color ease-in-out;
+}
+
+.plugins .plugin-list .plugin .button-bar div:hover {
+  color: red;
+}
+
+.toasts {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+}
+
+.toasts div {
+  border-radius: 32px;
+  height: 32px;
+  background-color: red;
+  color: white;
+  line-height: 32px;
+  padding: 0 12px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.toasts div:last-child {
+  margin-bottom: 0;
+}
