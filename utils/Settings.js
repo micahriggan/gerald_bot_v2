@@ -37,12 +37,14 @@ class Settings {
 		// Check for the setting in custom settings first
 		if ( customSettings[ fileName ] && customSettings[ fileName ][ key ] !== undefined ) {
 			customSettings[fileName][key] = _newValue;
+			fs.writeFile("setup/custom/settings.json", JSON.stringify(customSettings, null, '\t'), function(err) {
 	    if(err) {
 	        return console.log(err);
 	    }});
 		}
 		else {
 			defaultSettings[fileName][key] = _newValue;
+			fs.writeFile("setup/core/settings.json", JSON.stringify(defaultSettings, null, '\t'), function(err) {
 	    if(err) {
 	        return console.log(err);
 	    }});
