@@ -5,7 +5,8 @@
 	"plugins": {
 		"chat": true,
 		"interface": true,
-		"points": true
+		"points": true,
+		"donations": true
 	},
 	"coreCommands": {
 		"ban-management": true,

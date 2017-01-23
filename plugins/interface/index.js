@@ -144,6 +144,19 @@ module.exports = [{
 			res.sendStatus(200);
 		});
 
+		app.get('/commands/:commandType', function(req, res)
+		{
+			let commands = runtime["coreCommands"][req.params.commandType];
+			for(let i = 0; i < commands.length;)
+			{
+				if(commands[i].name == null || commands[i].name == undefined)
+					commands.splice(i, 1);
+				else
+					i++;
+			}
+			res.send(commands);
+		});
+
 		app.listen(app.get('port'),  function () {
 			console.log('Interface started on http://localhost:' +
 			app.get('port') + '; press Ctrl-C to terminate.' );

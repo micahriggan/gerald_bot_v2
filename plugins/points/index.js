@@ -15,6 +15,33 @@ module.exports = [{
   			res.send(pointData);
   		});
 
+      api.get('/points/top/:num', function(req, res)
+  		{
+				let pointData = runtime.brain.get('points') || {};
+        let usersInPoints = Object.keys(pointData);
+
+        let pointDataArray = [];
+
+        for(let i = 0; i < usersInPoints.length; i++)
+        {
+          let user = usersInPoints[i];
+          if(user != runtime.credentials.username)
+            pointDataArray.push({
+              user: user,
+              points: pointData[user]
+            });
+        }
+
+        pointDataArray.sort( function(a, b) {
+    			return a.points < b.points ? -1 : a.points > b.points ? 1 : 0;
+    		}).reverse();
+
+        if(req.params.num != 0)
+  			  res.send(pointDataArray.slice(0,req.params.num));
+        else
+          res.send(pointDataArray);
+  		});
+
       api.get('/points/:user', function(req, res)
   		{
         let pointData = runtime.brain.get('points') || {};

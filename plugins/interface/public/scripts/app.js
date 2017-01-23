@@ -11,9 +11,11 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
   // Master Variables
   $rootScope.users = [];
   $rootScope.logs = [];
-  $scope.view = "plugins";
+  $scope.view = "dashboard";
   $rootScope.plugins = [];
   $rootScope.toasts = [];
+  $rootScope.commands = [];
+  $rootScope.points = [];
 
   $rootScope.startInterface = function () {
     $http({
@@ -24,12 +26,21 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
     }, function errorCallback(response) {
       console.log(response);
     });
+
+    $http({
+      method: 'GET',
+      url: 'http://localhost:8000/commands/message'
+    }).then(function successCallback(commandData) {
+      $rootScope.commands = commandData.data;
+    }, function errorCallback(response) {
+      console.log(response);
+    });
   };
   $rootScope.startInterface();
 
   // Begin Update Loop
   setInterval(function(){
-    $rootScope.updateInterface();
+    //$rootScope.updateInterface();
   }, 10000)
 
   $rootScope.updateInterface = function () {
@@ -48,6 +59,16 @@ app.controller('geraldController', function ($rootScope, $scope, $http) {
     }).then(function successCallback(logData) {
       $rootScope.logs = logData.data;
       console.log(logData.data);
+    }, function errorCallback(response) {
+      console.log(response);
+    });
+
+    $http({
+      method: 'GET',
+      url: 'http://localhost:8000/points/top/10'
+    }).then(function successCallback(pointData) {
+      $rootScope.points = pointData.data;
+      console.log(pointData.data);
     }, function errorCallback(response) {
       console.log(response);
     });

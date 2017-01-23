@@ -1,5 +1,13 @@
 <h3>Active Users</h3>
 
+<div class="bar-graph dashboard_points">
+  <div ng-repeat="point in points track by $index" style="width:calc(100%/{[{points.length}]}); left: calc((100%/{[{points.length}]})*{[{$index}]});">
+    <div class="graph-bar" style="
+    height: calc(100%*{[{point.points/points[0].points}]})">
+    </div>
+  </div>
+</div>
+
 <ul>
   <li ng-repeat="user in users | orderBy: username">
     {[{user.username}]}

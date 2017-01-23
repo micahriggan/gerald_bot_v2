@@ -80,6 +80,7 @@ h2 {
   margin-right: 16px;
   border-radius: 3px;
   position: relative;
+  margin-bottom: 16px;
 }
 
 .plugins .plugin-list .plugin.inactive {
@@ -148,4 +149,32 @@ h2 {
 
 .toasts div:last-child {
   margin-bottom: 0;
+}
+
+.bar-graph {
+  background: white;
+  border-radius: 3px;
+  position: relative;
+  display: block;
+  clear: both;
+  height: 200px;
+}
+
+.bar-graph div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: yellow;
+}
+
+.bar-graph div .graph-bar {
+  background: red;
+  width: 50%;
+  display: block;
+  margin: auto 25% 0;
+  text-align: center;
+}
+
+.bar-graph div:first-child {
+  padding-left: 0;
 }
