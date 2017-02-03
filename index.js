@@ -9,7 +9,7 @@ const credentials = require('./setup/custom/credentials');
 const Brain = require('./utils/Brain');
 const ChatBot = require('./utils/ChatBot');
 const Client = require('./utils/Client');
-let api = require('../plugins/interface/index').appAPI;
+let api = require('./plugins/interface/index').appAPI;
 
 // Build the initial runtime object
 let runtime = require('./utils/Runtime');
@@ -41,9 +41,10 @@ micahBot.use((bot, message) => {
 });
 
 micahBot.use((bot, message) => {
+	message.test = 123;
   //Example of rate limiting middleware
   let messages = bot.brain.get('userMessages') || {};
-  let userMessageLog = messages[username];
+  let userMessageLog = messages[message.user];
 
   // Don't rate limit the bot
   if (message.user !== credentials.username && userMessageLog) {

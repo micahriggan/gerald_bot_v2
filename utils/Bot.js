@@ -33,8 +33,12 @@ class Bot {
     let commandCycle = Settings.getSetting('coreApp', 'app_cycle');
     setTimeout(this.tick, commandCycle * 1000);
   }
-  use(command) {
-    this.middleware.push(command);
+  //tail recursively handle lists of functions
+  use(command, ...rest) {
+    if (typeof (command) === "function") {
+      this.middleware.push(command);
+      this.use(rest);
+    }
   }
   run(commands = []) {
     commands.forEach((command) => {
@@ -42,3 +46,4 @@ class Bot {
     });
   }
 }
+module.exports = Bot;
