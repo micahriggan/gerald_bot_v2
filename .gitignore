@@ -40,3 +40,9 @@ brain
 
 .sublime-project
 .sublime-workspace
+
+# Vim files
+*.swp
+
+# Tmux files
+.tmuxp.yaml
