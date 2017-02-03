@@ -34,42 +34,50 @@ runtime.brain.start(__dirname + "/brain");
 let chat = new Client(runtime.credentials);
 let newBot = new Bot(runtime.brain);
 
-newBot.use((bot, message, next) => {
+newBot.use((bot, req, next) => {
   // simple example of timestamp middleware
   // Skip the messages before the bot was started
   const messageTime = new Date().getTime();
   if (messageTime - runtime.startUpTime > 10000) {
-    message.time = messageTime;
+    req.time = messageTime;
     next();
   }
 });
 
-newBot.use((bot, message, next) => {
+newBot.use((bot, req, next) => {
   // simple example of middleware
-	// should only show new messages via above
-  if (message.type === "message")
-    console.log(message);
+  // should only show new messages via above
+  console.log(req);
   next();
 });
 
 
 
-newBot.use((bot, message, next) => {
+newBot.use((bot, req, next) => {
   //Example of rate limiting middleware
   let messages = bot.brain.get('userMessages') || {};
-  let userMessageLog = messages[message.user];
+  let userMessageLog = messages[req.user];
 
   // Don't rate limit the bot
-  if (message.user !== credentials.username && userMessageLog) {
+  if (req.user !== credentials.username && userMessageLog) {
     let lastCommandTimeExists = userMessageLog.lastCommandTime > 0;
     if (lastCommandTimeExists && now - userMessageLog.lastCommandTime < 3000) { // 3 seconds
       message.rateLimited = true;
     }
   }
-	// no other middleware triggered by rate limit
-	if(!message.rateLimited)
-		next();
+  // no other middleware triggered by rate limit
+  if (!req.rateLimited)
+    next();
 });
+
+
+// example of parrot bot
+// don't repeat yourself
+newBot.use((bot, req, next) => {
+  if (req.type === "message" && req.user.username !== credentials.username)
+    bot.say("You said \"" + req.message + "\"?");
+});
+
 
 //example of legacy adapter
 const PointPlugin = require('./plugins/points');
