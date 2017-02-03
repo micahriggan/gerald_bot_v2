@@ -32,9 +32,9 @@ if (!runtime.credentials.username || !runtime.credentials.room || !runtime.crede
 
 runtime.brain.start(__dirname + "/brain");
 let chat = new Client(runtime.credentials);
-let micahBot = new Bot(runtime.brain);
+let newBot = new Bot(runtime.brain);
 
-micahBot.use((bot, message, next) => {
+newBot.use((bot, message, next) => {
   // simple example of timestamp middleware
   // Skip the messages before the bot was started
   const messageTime = new Date().getTime();
@@ -44,7 +44,7 @@ micahBot.use((bot, message, next) => {
   }
 });
 
-micahBot.use((bot, message, next) => {
+newBot.use((bot, message, next) => {
   // simple example of middleware
 	// should only show new messages via above
   if (message.type === "message")
@@ -54,7 +54,7 @@ micahBot.use((bot, message, next) => {
 
 
 
-micahBot.use((bot, message) => {
+newBot.use((bot, message) => {
   message.test = 123;
   //Example of rate limiting middleware
   let messages = bot.brain.get('userMessages') || {};
@@ -71,6 +71,6 @@ micahBot.use((bot, message) => {
 
 //example of legacy adapter
 const PointPlugin = require('./plugins/points');
-micahBot.use(LegacyAdapter(PointPlugin));
+newBot.use(LegacyAdapter(PointPlugin));
 
-micahBot.listen(chat, 'onMessage');
+newBot.listen(chat, 'onMessage');
