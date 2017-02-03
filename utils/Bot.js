@@ -1,24 +1,23 @@
+let Ware = require('ware');
 class Bot {
   constructor(Brain) {
     this.brain = Brain;
     this.startCommands = [];
     this.tickCommands = [];
-    this.middleware = [];
+    this.middleware = Ware();
     this.client = null;
   }
-  listen(client) {
+  listen(client, triggerName) {
     this.client = client;
-    this.client.onMessage((message) => {
-      this.middleware.forEach((handler) => {
-        handler(this, message);
-      });
+    this.client[triggerName]((message) => {
+      this.middleware.run(this, message);
     });
   }
   say(message) {
-    client.sendMessage(message);
+    this.client.sendMessage(message);
   }
   start() {
-    run(this.startCommands);
+    this.run(this.startCommands);
     this.tick();
   }
   onStart(command) {
@@ -34,11 +33,9 @@ class Bot {
     setTimeout(this.tick, commandCycle * 1000);
   }
   //tail recursively handle lists of functions
-  use(command, ...rest) {
-    if (typeof (command) === "function") {
-      this.middleware.push(command);
-      this.use(rest);
-    }
+  use(commands) {
+    if (typeof (commands) === "array" || typeof (commands) === "function")
+      this.middleware.use(commands);
   }
   run(commands = []) {
     commands.forEach((command) => {

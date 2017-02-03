@@ -1,6 +1,6 @@
 function LegacyAdapter(plugins) {
   return plugins.map((plugin) => {
-    return (bot, message) => {
+    return (bot, message, next) => {
       let params = [];
       let action = null;
       if (plugin.types.indexOf("interface") > -1) {
@@ -14,7 +14,8 @@ function LegacyAdapter(plugins) {
         params = [bot.client, message];
         action = ChatBot.runCommand;
       }
-      action(plugin, ...params)
+      action(plugin, ...params);
+			next();
     };
   });
 }
