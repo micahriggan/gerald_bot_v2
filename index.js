@@ -54,8 +54,7 @@ newBot.use((bot, message, next) => {
 
 
 
-newBot.use((bot, message) => {
-  message.test = 123;
+newBot.use((bot, message, next) => {
   //Example of rate limiting middleware
   let messages = bot.brain.get('userMessages') || {};
   let userMessageLog = messages[message.user];
@@ -67,6 +66,9 @@ newBot.use((bot, message) => {
       message.rateLimited = true;
     }
   }
+	// no other middleware triggered by rate limit
+	if(!message.rateLimited)
+		next();
 });
 
 //example of legacy adapter
