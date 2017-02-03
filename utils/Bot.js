@@ -19,7 +19,7 @@ class Bot {
   }
   start() {
     run(this.startCommands);
-		this.tick();
+    this.tick();
   }
   onStart(command) {
     this.startCommands.push(command);
@@ -33,13 +33,12 @@ class Bot {
     let commandCycle = Settings.getSetting('coreApp', 'app_cycle');
     setTimeout(this.tick, commandCycle * 1000);
   }
-}
-use(command) {
-  this.middleware.push(command);
-}
-run(commands = []) {
-  commands.forEach((command) => {
-    command(this);
-  });
-}
+  use(command) {
+    this.middleware.push(command);
+  }
+  run(commands = []) {
+    commands.forEach((command) => {
+      command(this);
+    });
+  }
 }
