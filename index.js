@@ -33,10 +33,29 @@ if (!runtime.credentials.username || !runtime.credentials.room || !runtime.crede
 runtime.brain.start(__dirname + "/brain");
 let chat = new Client(runtime.credentials);
 let micahBot = new Bot(runtime.brain);
+
 micahBot.use((bot, message) => {
   // simple example of middleware
   if (message.type === "message")
     console.log(message)
 });
-micahBot.use(LegacyAdapter(
-      micahBot.listen(chat);
+
+micahBot.use((bot, message) => {
+  //Example of rate limiting middleware
+  let messages = bot.brain.get('userMessages') || {};
+  let userMessageLog = messages[username];
+
+  // Don't rate limit the bot
+  if (message.user !== credentials.username && userMessageLog) {
+    let lastCommandTimeExists = userMessageLog.lastCommandTime > 0;
+    if (lastCommandTimeExists && now - userMessageLog.lastCommandTime < 3000) { // 3 seconds
+      message.rateLimited = true;
+    }
+  }
+});
+
+//example of legacy adapter
+const PointPlugin = require('./plugins/points');
+micahBot.use(LegacyAdapter(PointPlugin));
+
+micahBot.listen(chat);
