@@ -76,6 +76,31 @@ newBot.use((bot, req, next) => {
 newBot.use((bot, req, next) => {
   if (req.type === "message" && req.user.username !== credentials.username)
     bot.say("You said \"" + req.message + "\"?");
+  next();
+});
+
+
+
+
+// greeting plugin
+newBot.use((bot, req, next) => {
+  if (req.type === "presence" && req.user.username !== credentials.username) {
+    bot.say("hello " + req.user.username + "! Thanks for watching!");
+  }
+  next();
+});
+
+
+
+newBot.onTick((bot) => {
+  bot.socialTimer = bot.socialTimer ? bot.socialTimer + 1 : 1;
+  if (bot.socialTimer % 30 === 0) {
+		let users =  bot.brain.get('users') || {}
+    console.log(users);
+    let userCount = Object.keys(users).length;
+    bot.socialTimer = 0;
+    bot.say("There are " + userCount +" watching");
+  }
 });
 
 
@@ -84,3 +109,4 @@ const PointPlugin = require('./plugins/points');
 newBot.use(LegacyAdapter(PointPlugin));
 
 newBot.listen(chat, 'onMessage');
+newBot.start();
