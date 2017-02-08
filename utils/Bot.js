@@ -19,7 +19,8 @@ class Bot {
   }
   start() {
     run(this.startCommands);
-
+    let commandCycle = Settings.getSetting('coreApp', 'app_cycle');
+    setTimeout(this.tick, commandCycle * 1000);
   }
   onStart(command) {
     this.startCommands.push(command);
@@ -30,11 +31,7 @@ class Bot {
   tick() {
     console.log("-- Update Tick --");
     this.run(this.tickCommands);
-    let commandCycle = Settings.getSetting('coreApp', 'app_cycle');
-    setTimeout(this.tick, commandCycle * 1000);
   }
-
-  loop();
 }
 use(command) {
   this.middleware.push(command);
